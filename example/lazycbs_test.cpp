@@ -131,7 +131,8 @@ lazycbs::MAPF_Solver mapf1(ml, al, egr, 1e8);
   if (success) {
     std::cout << "Planning successful! " << std::endl;
 
-    std::ofstream out("../example/output_lazycbs.yaml");
+    // std::ofstream out("../example/output_lazycbs.yaml");
+    std::ofstream out("./output_lazycbs.yaml");
     out << "statistics:" << std::endl;
     out << "  cost: " << solution.first << std::endl;
     out << "  runtime: " << lazycbs_time << std::endl;

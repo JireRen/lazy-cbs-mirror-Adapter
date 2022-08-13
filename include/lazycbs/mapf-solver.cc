@@ -369,7 +369,9 @@ bool MAPF_Solver::resolveConflicts(void) {
     nmap[loc] = ai;
   }
   // Run through the candidate plan, identify agents with conflicts.
-  for(int t = 1; t < pMax; ++t) {
+  // DEBUG: ILLEGAL
+  // for(int t = 1; t < pMax; ++t) { // Buggy ver
+  for(int t = 1; t <= pMax; ++t) { // Fixed ver
     ::std::swap(cmap, nmap);
 
     for(int ai = 0; ai < pathfinders.size(); ++ai) {
@@ -394,8 +396,10 @@ bool MAPF_Solver::resolveConflicts(void) {
     // Now we zero out the previous cmap.
     clear_map(this, cmap, t-1);
   }
-  clear_map(this, nmap, pMax-1);
-  
+  // DEBUG: ILLEGAL MOVEMENTS
+  // clear_map(this, nmap, pMax-1); // Buggy ver
+  clear_map(this, nmap, pMax); // Fixed ver
+
   for(int ai = 0; ai < pathfinders.size(); ++ai) {
     if(conflicting[ai]) {
       // Try re-routing agent ai, in the hopes of getting a better plan.
@@ -536,8 +540,9 @@ bool MAPF_Solver::checkForConflicts(void) {
   }
   // All agents are interesting.
   agent_set.sz = pathfinders.size();
-
-  for(int t = 1; t < pMax; ++t) {
+  // DEBUG: ILLEGAL
+  // for(int t = 1; t < pMax; ++t) { // Buggy ver
+  for(int t = 1; t <= pMax; ++t) { // Fixed ver
     ::std::swap(cmap, nmap);
 
     // for(int ai = 0; ai < pathfinders.size(); ++ai) {
@@ -648,7 +653,9 @@ bool MAPF_Solver::checkForConflicts(void) {
     // Now we zero out the previous cmap.
     clear_map(this, cmap, t-1);
   }
-  clear_map(this, nmap, pMax-1);
+  // DEBUG: ILLEGAL MOVEMENTS
+  // clear_map(this, nmap, pMax-1); // Buggy ver
+  clear_map(this, nmap, pMax); // Fixed ver
 
   return new_conflicts.size() > 0;
 }
